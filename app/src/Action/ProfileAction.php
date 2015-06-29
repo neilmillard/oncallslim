@@ -5,7 +5,7 @@ use Slim\Router;
 use Slim\Views\Twig;
 use Monolog\Logger;
 
-final class HomeAction
+final class ProfileAction
 {
     private $view;
     private $logger;
@@ -20,9 +20,10 @@ final class HomeAction
 
     public function dispatch($request, $response, $args)
     {
-        $this->logger->info("Home page action dispatched");
-        $healthurl = $this->router->urlFor('oncall',['rota'=>'health']);
-        $this->view->render($response, 'home.twig');
+        $this->logger->info("Profile page action dispatched");
+        $rota = $args['rota'];
+
+        $this->view->render($response, 'profile.twig');
         return $response;
     }
 }

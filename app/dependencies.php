@@ -48,5 +48,13 @@ $container['database'] = function ($c) {
 // -----------------------------------------------------------------------------
 
 $container['App\Action\HomeAction'] = function ($c) {
-    return new App\Action\HomeAction($c['view'], $c['logger']);
+    return new App\Action\HomeAction($c['view'], $c['logger'], $c['router']);
+};
+
+$container['App\Action\OncallAction'] = function ($c) {
+    return new App\Action\OncallAction($c['view'], $c['logger'], $c['router']);
+};
+
+$container['App\Action\ProfileAction'] = function ($c) {
+    return new App\Action\ProfileAction($c['view'], $c['logger'], $c['router']);
 };
