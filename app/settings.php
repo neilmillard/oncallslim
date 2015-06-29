@@ -19,6 +19,13 @@ return [
 
     // database settings
     'database' => [
-
+        'driver'    => 'mysql',
+        'host'      => 'localhost',
+        'database'  => 'apps',
+        'username'  => 'apps',
+        'password'  => '4ppS',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_general_ci',
+        'prefix'    => '',
     ],
 ];

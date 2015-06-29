@@ -1,6 +1,7 @@
 # Slim 3 Skeleton
 
 This is a simple skeleton project for Slim 3 that includes Twig, Illuminate Capsule, Flash messages and Monolog.
+* 'docs': http://docs-new.slimframework.com
 
 ## Create your project:
 
