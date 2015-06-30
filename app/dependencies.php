@@ -42,6 +42,19 @@ $container['database'] = function ($c) {
     return $capsule;
 };
 
+$container['authenticator'] = function ($c) {
+    $settings = $c['settings']['PDO'];
+    $db= new \PDO($settings);
+    $adapter = new \App\Authentication\Adapter\Db\PdoAdapter(
+        $db,
+        'users',
+        'username',
+        'hash',
+        new \JeremyKendall\Password\PasswordValidator()
+    );
+    $authenticator = new \App\Authentication\Authenticator($adapter);
+    return $authenticator;
+};
 
 // -----------------------------------------------------------------------------
 // Action factories
@@ -57,4 +70,8 @@ $container['App\Action\OncallAction'] = function ($c) {
 
 $container['App\Action\ProfileAction'] = function ($c) {
     return new App\Action\ProfileAction($c['view'], $c['logger'], $c['router']);
+};
+
+$container['App\Action\LoginAction'] = function ($c) {
+    return new App\Action\LoginAction($c['view'], $c['logger'], $c['router'], $c['authenticator']);
 };

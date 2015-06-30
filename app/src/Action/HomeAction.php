@@ -1,6 +1,8 @@
 <?php
 namespace App\Action;
 
+use Slim\Http\Request;
+use Slim\Http\Response;
 use Slim\Router;
 use Slim\Views\Twig;
 use Monolog\Logger;
@@ -18,7 +20,7 @@ final class HomeAction
         $this->router = $router;
     }
 
-    public function dispatch($request, $response, $args)
+    public function dispatch(Request $request, Response $response, Array $args)
     {
         $this->logger->info("Home page action dispatched");
         $healthurl = $this->router->urlFor('oncall',['rota'=>'health']);

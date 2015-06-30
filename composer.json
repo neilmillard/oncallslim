@@ -33,6 +33,7 @@
         "slim/twig-view": "^1.1",
         "slim/flash": "dev-master",
         "monolog/monolog": "^1.13",
+        "jeremykendall/password-validator": "3.*",
         "illuminate/database": "5.1.*"
     },
     "minimum-stability": "dev"
