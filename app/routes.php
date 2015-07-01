@@ -7,8 +7,10 @@ $app->get('/', 'App\Action\HomeAction:dispatch')
 $app->get('/oncall/{rota}', 'App\Action\OncallAction:dispatch')
     ->setName('oncall');
 
+/** @noinspection PhpUndefinedMethodInspection */
 $app->get('/profile', 'App\Action\ProfileAction:dispatch')
-    ->setName('profile');
+    ->setName('profile')
+    ->add('Authenticator\Middleware:auth');
 
 $app->map(['GET', 'POST'], '/login', 'App\Action\LoginAction:login')
     ->setName('login');

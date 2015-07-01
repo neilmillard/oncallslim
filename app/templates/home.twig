@@ -8,54 +8,64 @@
 
 <!-- <br><br> -->
 
-    <div style="border:0px border-collapse: collapse; width: 700px;">
-        <img style="padding-left: 100px" border="0" src="axa_technology_services.jpg">
+    <div style="border:0 border-collapse: collapse; width: 700px;">
+        <img style="padding-left: 100px" border="0" src="\axa_technology_services.jpg">
         <br/>
         <h2>Application Services UK Oncall Rotas</h2>
     </div>
 
     <br/><br/>
 
-    <div style="border:0px border-collapse: collapse; width: 700px;">
+    <div style="border:0 border-collapse: collapse; width: 700px;">
         <ul style="list-style-type: disc">
-            <li><h2>TOUI – Insurance P&amp;C Apps</h2></li>
-            <ul>
-                <li><a href="http://wssbos02/Apps/oncall.php?TYPE=HEALTH_MF">Health & Insurance Mainframe Apps Shared Rota</a></li>
-                <li><a href="http://wssbos02/Apps/oncall.php?TYPE=HEALTH_WIN">Insurance Windows Apps</a></li>
-            </ul>
+            <li><h2>TOUI - Insurance P&amp;C Apps</h2></li>
+            <li>
+                <ul>
+                    <li><a href="{{ url_for('oncall',{'rota': 'HEALTH_MF'}) }}">Health & Insurance Mainframe Apps Shared Rota</a></li>
+                    <li><a href="{{ url_for('oncall',{'rota': 'HEALTH_WIN'}) }}">Insurance Windows Apps</a></li>
+                </ul>
+            </li>
         </ul>
 
         <br/><br/>
         <ul style="list-style-type: disc">
-            <li><h2><b>TOUE – Health & Enterprise Apps</b></h2></li>
-            <ul>
-                <li><a href="http://wssbos02/Apps/oncall.php?TYPE=HEALTH_MF">Health & Insurance Mainframe Apps Shared Rota</a></li>
-                <li><a href="http://wssbos02/Apps/oncall.php?TYPE=HEALTH_WIN">Health & Enterprise Windows Apps</a></li>
-            </ul>
+            <li><h2><b>TOUE - Health & Enterprise Apps</b></h2></li>
+            <li>
+                <ul>
+                    <li><a href="{{ url_for('oncall',{'rota': 'HEALTH_MF'}) }}">Health & Insurance Mainframe Apps Shared Rota</a></li>
+                    <li><a href="{{ url_for('oncall',{'rota': 'HEALTH_WIN'}) }}">Health & Enterprise Windows Apps</a></li>
+                </ul>
+            </li>
         </ul>
 
         <br/><br/>
         <ul style="list-style-type: disc">
-            <li><h2><b>TOUS – AXA Wealth & Group Apps</b></h2></li>
-            <ul>
-                <li><a href="http://wssbos02/Apps/oncall.php?TYPE=WEALTH_MF">Wealth & Group Mainframe Apps</a></li>
-            </ul>
+            <li><h2><b>TOUS - AXA Wealth & Group Apps</b></h2></li>
+            <li>
+                <ul>
+                    <li><a href="{{ url_for('oncall',{'rota': 'WEALTH_MF'}) }}">Wealth & Group Mainframe Apps</a></li>
+                </ul>
+            </li>
         </ul>
         <br/><br/>
 
         <ul style="list-style-type: disc">
-            <li><h2><b>TOUC – PCS</b></h2></li>
-            <ul>
-                <li><a href="http://dts.uk.axa-tech.intraxa/public/">PCS oncall rota</a></li>
-            </ul>
+            <li><h2><b>TOUC - PCS</b></h2></li>
+            <li>
+                <ul>
+                    <li><a href="http://dts.uk.axa-tech.intraxa/public/">PCS oncall rota</a></li>
+                </ul>
+            </li>
         </ul>
         <br/><br/>
 
         <ul style="list-style-type: disc">
             <li><h2><b>BAU CALLOUT (copied from mainframe)</b></h2></li>
-            <ul>
-                <li><a href="http://wssbos02/apps/UKITBAUCALLOUT.php">BAU CALLOUT</a></li>
-            </ul>
+            <li>
+                <ul>
+                    <li><a href="http://wssbos02/apps/UKITBAUCALLOUT.php">BAU CALLOUT</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </body>

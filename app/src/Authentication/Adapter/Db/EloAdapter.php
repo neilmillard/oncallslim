@@ -2,7 +2,7 @@
 
 /**
  * Slim Auth.
- *
+ * Eloquent adapter, requires Eloquent setup first
  * @link      http://github.com/jeremykendall/slim-auth Canonical source repo
  *
  * @copyright Copyright (c) 2015 Jeremy Kendall (http://about.me/jeremykendall)
@@ -11,18 +11,17 @@
 
 namespace App\Authentication\Adapter\Db;
 
-use JeremyKendall\Password\PasswordValidatorInterface;
-use PDO;
 use App\Authentication\Adapter\AbstractAdapter;
 use App\Authentication\Result as AuthenticationResult;
+
 
 /**
  * Authentication adapter.
  */
-class PdoAdapter extends AbstractAdapter
+class EloAdapter extends AbstractAdapter
 {
     /**
-     * @var PDO DB connection
+     * @var \PDO
      */
     private $db;
 
@@ -42,31 +41,22 @@ class PdoAdapter extends AbstractAdapter
     private $credentialColumn;
 
     /**
-     * @var PasswordValidatorInterface Handles password validation
+     * @var array Result info
      */
-    protected $passwordValidator;
+    protected $resultInfo = array();
 
     /**
      * Public constructor.
-     *
-     * @param PDO                        $db
+     * @param \PDO                       $pdo
      * @param string                     $tableName
      * @param string                     $identityColumn
      * @param string                     $credentialColumn
-     * @param PasswordValidatorInterface $passwordValidator Password validator
      */
-    public function __construct(
-        PDO $db,
-        $tableName,
-        $identityColumn,
-        $credentialColumn,
-        PasswordValidatorInterface $passwordValidator
-    ) {
-        $this->db = $db;
+    public function __construct($pdo, $tableName, $identityColumn, $credentialColumn ) {
+        $this->db = $pdo;
         $this->tableName = $tableName;
         $this->identityColumn = $identityColumn;
         $this->credentialColumn = $credentialColumn;
-        $this->passwordValidator = $passwordValidator;
     }
 
     /**
@@ -86,8 +76,8 @@ class PdoAdapter extends AbstractAdapter
             );
         }
 
-        $validationResult = $this->passwordValidator->isValid(
-            $this->credential, $user[$this->credentialColumn], $user['id']
+        $validationResult = $this->isPasswordValid(
+            $this->credential, $user[$this->credentialColumn]
         );
 
         if ($validationResult->isValid()) {
@@ -101,6 +91,25 @@ class PdoAdapter extends AbstractAdapter
             AuthenticationResult::FAILURE_CREDENTIAL_INVALID,
             array(),
             array('Invalid username or password provided')
+        );
+    }
+
+    protected function isPasswordValid( $password, $passwordHash )
+    {
+        $this->resultInfo = array(
+            'code' => AuthenticationResult::FAILURE_CREDENTIAL_INVALID,
+            'password' => null,
+        );
+
+        $isValid = password_verify($password, $passwordHash);
+
+        if ($isValid === true) {
+            $this->resultInfo['code'] = AuthenticationResult::SUCCESS;
+        }
+
+        return new AuthenticationResult(
+            $this->resultInfo['code'],
+            $this->resultInfo['password']
         );
     }
 
@@ -121,7 +130,7 @@ class PdoAdapter extends AbstractAdapter
 
         // Explicitly setting fetch mode fixes
         // https://github.com/jeremykendall/slim-auth/issues/13
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**

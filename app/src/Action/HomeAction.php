@@ -23,7 +23,6 @@ final class HomeAction
     public function dispatch(Request $request, Response $response, Array $args)
     {
         $this->logger->info("Home page action dispatched");
-        $healthurl = $this->router->urlFor('oncall',['rota'=>'health']);
         $this->view->render($response, 'home.twig');
         return $response;
     }

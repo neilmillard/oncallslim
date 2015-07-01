@@ -28,8 +28,17 @@ final class LoginAction
     {
         $this->logger->info("Login page action dispatched");
         $username = null;
-        // TODO: set redirect
-        $redirect = $_SESSION['redirect'];
+
+        $urlRedirect = $this->router->pathFor('homepage');
+
+        if ($request->getAttribute('r') && $request->getAttribute('r') != '/logout' && $request->getAttribute('r') != '/login') {
+            $_SESSION['urlRedirect'] = $request->getAttribute('r');
+        }
+
+        if (isset($_SESSION['urlRedirect'])) {
+            $urlRedirect = $_SESSION['urlRedirect'];
+        }
+
         if ($request->isPost()) {
             $username = $request->getAttribute('username');
             $password = $request->getAttribute('password');
@@ -37,7 +46,7 @@ final class LoginAction
             $result = $this->authenticator->authenticate($username, $password);
 
             if ($result->isValid()){
-                $response->withRedirect($redirect);
+                $response->withRedirect($urlRedirect);
             } else {
                 $messages = $result->getMessages();
                 // TODO: display messages in a flash object
@@ -51,8 +60,7 @@ final class LoginAction
     public function logout(Request $request, Response $response, Array $args)
     {
         $this->logger->info("Logout request action");
-        // TODO: logout
-        $this->authenticator->logout();
-        $response->withRedirect($redirect);
+        $this->authenticator->clearIdentity();
+        $response->withRedirect($this->router->pathFor('homepage'));
     }
 }

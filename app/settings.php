@@ -28,4 +28,11 @@ return [
         'collation' => 'utf8_general_ci',
         'prefix'    => '',
     ],
+
+    // authentication settings
+    'authenticator' => [
+        'tablename' => 'users',
+        'usernamefield' => 'username',
+        'credentialfield' => 'hash'
+    ]
 ];

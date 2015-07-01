@@ -162,5 +162,4 @@ class Authenticator {
         $this->storage[$this->storageKey]=[];
     }
 
-
 }

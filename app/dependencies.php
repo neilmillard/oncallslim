@@ -1,6 +1,8 @@
 <?php
 // DIC configuration
-
+/**
+ * @var \Slim\Container $container
+ */
 $container = $app->getContainer();
 
 // -----------------------------------------------------------------------------
@@ -12,6 +14,9 @@ $view = new \Slim\Views\Twig(
     $app->settings['view']['template_path'],
     $app->settings['view']['twig']
 );
+/**
+ * @var \Twig_Environment $twig
+ */
 $twig = $view->getEnvironment();
 $twig->addExtension(new Twig_Extension_Debug());
 $container->register($view);
@@ -32,25 +37,27 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// capsule database
+// database mysqli connection
 $container['database'] = function ($c) {
     $settings = $c['settings']['database'];
-    $capsule = new \Illuminate\Database\Capsule\Manager();
-    $capsule->addConnection( $settings );
-    $capsule->setAsGlobal();
-    $capsule->bootEloquent();
-    return $capsule;
+    $dsn = $settings['driver'] .
+        ':host=' . $settings['host'] .
+        ((!empty($settings['port'])) ? (';port=' . $settings['port']) : '') .
+        ';dbname=' . $settings['database'];
+    $connection = new PDO($dsn,$settings['username'],$settings['password']);
+    //$connection = new mysqli($settings['host'], $settings['username'], $settings['password'], $settings['database']);
+    return $connection;
 };
 
+// authentication
 $container['authenticator'] = function ($c) {
-    $settings = $c['settings']['PDO'];
-    $db= new \PDO($settings);
-    $adapter = new \App\Authentication\Adapter\Db\PdoAdapter(
-        $db,
-        'users',
-        'username',
-        'hash',
-        new \JeremyKendall\Password\PasswordValidator()
+    $settings = $c['settings']['authenticator'];
+    $connection = $c['database'];
+    $adapter = new \App\Authentication\Adapter\Db\EloAdapter(
+        $connection,
+        $settings['tablename'],
+        $settings['usernamefield'],
+        $settings['credentialfield']
     );
     $authenticator = new \App\Authentication\Authenticator($adapter);
     return $authenticator;

@@ -25,7 +25,7 @@ final class OncallAction
         $this->logger->info("Oncall page action dispatched");
         $rota = $args['rota'];
 
-        $this->view->render($response, 'oncall.twig');
+        $this->view->render($response, 'oncall.twig', ['rota'=>$rota]);
         return $response;
     }
 }
