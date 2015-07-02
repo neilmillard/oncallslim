@@ -1,12 +1,8 @@
-<html>
+{% extends 'layout.twig' %}
 
-<head>
-    <title>Apps OncallRota</title>
-</head>
+{% block page_title %}{{ parent() }} | Home{% endblock %}
 
-<body>
-
-<!-- <br><br> -->
+{% block content %}
 
 <div style="border:0 border-collapse: collapse; width: 700px;">
     <img style="padding-left: 100px" border="0" src="\axa_technology_services.jpg">
@@ -19,5 +15,4 @@ Oncall Route Template
 Rota: {{ rota }}
 <br/><br/>
 
-</body>
-</html>
+{% endblock %}

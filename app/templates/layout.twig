@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Oncall Rota Application">
+    <meta name="author" content="Neil Millard">
+
+    <link rel="shortcut icon" href="/img/icons/favicon.ico" type="image/x-icon">
+
+    <title>Oncall Rota</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.js"></script>
+    <![endif]-->
+
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li><a href="{{ url_for('homepage') }}">Home</a></li>
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <!-- <li><a href="/admin">Admin</a></li> -->
+            {% if hasIdentity %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+        </ul>
+        <h3 class="text-muted">&nbsp; {{ identity.name|capitalize }}</h3>
+    </div>
+
+    {% block jumbotron %}
+    {% endblock %}
+
+    <div class="row marketing">
+        {% block content %} {% endblock %}
+    </div>
+
+    <div class="footer">
+        <p class="text-muted credit">
+            With thanks to N Millard.
+        </p>
+    </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+{% block javascript %} {% endblock %}
+
+</body>
+</html>

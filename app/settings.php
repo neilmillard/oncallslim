@@ -32,7 +32,7 @@ return [
     // authentication settings
     'authenticator' => [
         'tablename' => 'users',
-        'usernamefield' => 'username',
+        'usernamefield' => 'name',
         'credentialfield' => 'hash'
     ]
 ];

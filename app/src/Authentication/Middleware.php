@@ -6,31 +6,41 @@ use App\Authentication\Exception\HttpUnauthorizedException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Router;
+use Slim\Views\Twig;
 
 class Middleware {
 
-    private $auth;
+    private $authenticator;
     private $router;
+    private $view;
 
-    public function __construct(Authenticator $authenticator, Router $router)
+    public function __construct(Authenticator $authenticator, Router $router, Twig $view)
     {
-        $this->auth= $authenticator;
-        $this->router= $router;
+        $this->authenticator = $authenticator;
+        $this->router = $router;
+        $this->view = $view;
         return;
     }
 
     public function auth(Request $request, Response $response, callable $next)
     {
 
-        $auth = $this->auth;
+        $auth = $this->authenticator;
         $role = $this->getRole($auth->getIdentity());
         $hasIdentity = $auth->hasIdentity();
+        $identity = $auth->getIdentity();
+
+        $data = array(
+            'hasIdentity' => $hasIdentity,
+            'role' => $role,
+            'identity' => $identity
+        );
 
         if (!$hasIdentity) {
             //throw new HttpUnauthorizedException();
             $_SESSION['urlRedirect'] = $request->getUri();
             //$app->flash('error', 'Login required');
-            $response->withRedirect($this->router->pathFor('login'));
+            return $response->withRedirect($this->router->pathFor('login'));
 
         }
 
@@ -39,6 +49,27 @@ class Middleware {
         return $response;
     }
 
+    public function addViewData(Request $request, Response $response, callable $next)
+    {
+        $auth = $this->authenticator;
+        $role = $this->getRole($auth->getIdentity());
+        $identity = $auth->getIdentity();
+        $hasIdentity = $auth->hasIdentity();
+        $data = array(
+            'hasIdentity' => $hasIdentity,
+            'role' => $role,
+            'identity' => $identity
+        );
+
+        // inject data into view object
+        /** @var \Twig_Environment $twig_environment */
+        foreach ($data as $key => $value) {
+            $this->view->offsetSet($key,$value);
+        }
+
+        $response = $next($request, $response);
+        return $response;
+    }
     /**
      * Gets role from user's identity.
      *

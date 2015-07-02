@@ -80,5 +80,5 @@ $container['App\Action\ProfileAction'] = function ($c) {
 };
 
 $container['App\Action\LoginAction'] = function ($c) {
-    return new App\Action\LoginAction($c['view'], $c['logger'], $c['router'], $c['authenticator']);
+    return new App\Action\LoginAction($c['view'], $c['logger'], $c['router'], $c['authenticator'], $c['flash']);
 };

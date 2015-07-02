@@ -1,0 +1,22 @@
+{% extends 'layout.twig' %}
+
+{% block page_title %}{{ parent() }} | Login{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <form class="form-signin well well-sm" role="form" name="login" id="login" method="post">
+        <h2 class="form-signin-heading">Please log in</h2>
+        {% if flash['error'] is defined %}
+            <div class="alert alert-danger">
+                {{ flash.error }}
+            </div>
+        {% endif %}
+        <input type="text" name="username" class="form-control" placeholder="Username" value="{{ username }}" autofocus required>
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    </form>
+    <div>{{ dump() }}</div>
+{% endblock %}

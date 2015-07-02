@@ -1,11 +1,8 @@
-<html>
+{% extends 'layout.twig' %}
 
-<head>
-    <title>Apps OncallRota</title>
-</head>
+{% block page_title %}{{ parent() }} | Home{% endblock %}
 
-<body>
-
+{% block content %}
 <!-- <br><br> -->
 
     <div style="border:0 border-collapse: collapse; width: 700px;">
@@ -68,6 +65,5 @@
             </li>
         </ul>
     </div>
-</body>
-</html>
+{% endblock %}
         

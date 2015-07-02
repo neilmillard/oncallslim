@@ -32,9 +32,9 @@ class Authenticator {
      */
     public function __construct(Adapter\AbstractAdapter $adapter = null, &$storage = null)
     {
-        if (null !== $storage) {
+        //if (null !== $storage) {
             $this->setStorage($storage);
-        }
+        //}
         if (null !== $adapter) {
             $this->setAdapter($adapter);
         }

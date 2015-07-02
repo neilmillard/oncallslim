@@ -23,7 +23,7 @@ final class ProfileAction
     public function dispatch(Request $request, Response $response, Array $args)
     {
         $this->logger->info("Profile page action dispatched");
-        $rota = $args['rota'];
+
 
         $this->view->render($response, 'profile.twig');
         return $response;
