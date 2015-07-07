@@ -40,11 +40,8 @@ $container['logger'] = function ($c) {
 // database mysqli connection
 $container['database'] = function ($c) {
     $settings = $c['settings']['database'];
-    $dsn = $settings['driver'] .
-        ':host=' . $settings['host'] .
-        ((!empty($settings['port'])) ? (';port=' . $settings['port']) : '') .
-        ';dbname=' . $settings['database'];
-    $connection = new PDO($dsn,$settings['username'],$settings['password']);
+
+    $connection = new \App\Database\Mysqldbo($settings);
     //$connection = new mysqli($settings['host'], $settings['username'], $settings['password'], $settings['database']);
     return $connection;
 };
