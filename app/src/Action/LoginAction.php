@@ -53,8 +53,9 @@ final class LoginAction
                 return $response->withRedirect($urlRedirect);
             } else {
                 $messages = $result->getMessages();
-                $this->flash->addMessage('error', $messages[0]);
-                $error=$messages[0];
+                $error=(string) $messages[0];
+                //$this->flash->addMessage('flash', $error);
+
             }
         }
         $this->view->render($response, 'login.twig',['username'=> $username,

@@ -9,9 +9,9 @@
 {% block content %}
     <form class="form-signin well well-sm" role="form" name="login" id="login" method="post">
         <h2 class="form-signin-heading">Please log in</h2>
-        {% if flash['error'] is defined %}
-            <div class="alert alert-danger">
-                {{ flash.error }}
+        {% if error is defined %}
+        <div class="alert alert-danger">
+                {{ error }}
             </div>
         {% endif %}
         <input type="text" name="username" class="form-control" placeholder="Username" value="{{ username }}" autofocus required>
