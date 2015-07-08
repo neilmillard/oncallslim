@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "34671cac506f6dbde3b3d2ed93d5bb83",
+    "hash": "149134f6ef98ead47cfd038731f40bb2",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -25,6 +25,40 @@
                 "MIT"
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)"
+        },
+        {
+            "name": "gabordemooij/redbean",
+            "version": "dev-master",
+            "dist": {
+                "type": "zip",
+                "url": "artifact\\gabordemooij-redbean-dev-master.zip",
+                "reference": null,
+                "shasum": "e46477bd0dd6445fc2bb530f9762eec0deed6668"
+            },
+            "require": {
+                "php": ">=5.3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RedBeanPHP\\": "RedBeanPHP"
+                }
+            },
+            "license": [
+                "New BSD and GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Gabor de Mooij",
+                    "email": "gabor@redbeanphp.com",
+                    "homepage": "http://redbeanphp.com"
+                }
+            ],
+            "description": "RedBeanPHP ORM",
+            "homepage": "http://redbeanphp.com/",
+            "keywords": [
+                "orm"
+            ]
         },
         {
             "name": "monolog/monolog",
@@ -466,7 +500,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "slim/twig-view": 20,
-        "slim/flash": 20
+        "slim/flash": 20,
+        "gabordemooij/redbean": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

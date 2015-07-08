@@ -29,9 +29,11 @@
         }
     },
     "require": {
-        "slim/slim": "^3.0",
-        "slim/twig-view": "dev-master",
-        "slim/flash": "dev-master",
-        "monolog/monolog": "^1.13"    },
+      "slim/slim": "^3.0",
+      "slim/twig-view": "dev-master",
+      "slim/flash": "dev-master",
+      "monolog/monolog": "^1.13",
+      "gabordemooij/redbean": "dev-master"
+    },
     "minimum-stability": "dev"
 }

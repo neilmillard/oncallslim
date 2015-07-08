@@ -37,11 +37,21 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
+$container['dsn'] = function ($c) {
+    $settings = $c['settings']['database'];
+    $dsn = $settings['driver'] .
+        ':host=' . $settings['host'] .
+        ((!empty($settings['port'])) ? (';port=' . $settings['port']) : '') .
+        ';dbname=' . $settings['database'];
+    return $dsn;
+};
+
+R::setup($container['dsn'], $container['settings']['database']['username'], $container['settings']['database']['password'],TRUE);
+
 // database mysqli connection
 $container['database'] = function ($c) {
     $settings = $c['settings']['database'];
-
-    $connection = new \App\Database\Mysqldbo($settings);
+    $connection = new \App\Database\Mysqldbo($c['dsn'], $settings);
     //$connection = new mysqli($settings['host'], $settings['username'], $settings['password'], $settings['database']);
     return $connection;
 };
