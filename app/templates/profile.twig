@@ -4,7 +4,16 @@
 
 {% block content %}
 
-Profile Route Template
+<div>
+    <h2>Identity</h2>
+    <p> Name: {{ name }}</p>
+    <p> Fullname: {{ fullname }}</p>
+    <p> Short Dial: {{ shortdial }}</p>
+    <p> Long Dial: {{ longdial }}</p>
+    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ url_for('edituser',{'username': name}) }}">
+        Update
+    </a>
+</div>
 
 <br/><br/>
 

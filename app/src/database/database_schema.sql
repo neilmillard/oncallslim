@@ -168,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `uk_shift` (
 -- Dumping structure for table apps.users
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` char(10) NOT NULL,
   `fullname` char(20) DEFAULT NULL,
   `password` char(15) DEFAULT NULL,
@@ -187,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `wealth_win` binary(1) DEFAULT NULL,
   `uk_shift` binary(1) DEFAULT NULL,
   `atss` binary(1) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='InnoDB free: 11264 kB';
 
 INSERT INTO `users` (`name`, `fullname`, `password`, `hash`, `colour`, `shortdial`, `longdial`, `mobile`, `home`, `ins_mf`, `ins_win`, `health_mf`, `health_win`, `life_mf`, `life_win`, `wealth_mf`, `wealth_win`, `uk_shift`, `atss`) VALUES

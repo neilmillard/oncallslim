@@ -2,7 +2,6 @@
 
 namespace App\Authentication;
 
-use App\Authentication\Exception\HttpUnauthorizedException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Router;
@@ -30,11 +29,11 @@ class Middleware {
         $hasIdentity = $auth->hasIdentity();
         $identity = $auth->getIdentity();
 
-        $data = array(
-            'hasIdentity' => $hasIdentity,
-            'role' => $role,
-            'identity' => $identity
-        );
+//        $data = array(
+//            'hasIdentity' => $hasIdentity,
+//            'role' => $role,
+//            'identity' => $identity
+//        );
 
         if (!$hasIdentity) {
             //throw new HttpUnauthorizedException();
@@ -81,12 +80,15 @@ class Middleware {
     {
         $role = null;
         if (is_object($identity)) {
-            $role = $identity->getRole();
+            $role = empty($identity->getRole())? 'user': $identity->getRole();
+        }
+        if (is_array($identity)){
+            $role = 'User';
         }
         if (is_array($identity) && isset($identity['role'])) {
             $role = $identity['role'];
         }
-        if (!$role) {
+        if (empty($role)) {
             $role = 'guest';
         }
         return $role;

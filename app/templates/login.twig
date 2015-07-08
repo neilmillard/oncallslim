@@ -9,7 +9,7 @@
 {% block content %}
     <form class="form-signin well well-sm" role="form" name="login" id="login" method="post">
         <h2 class="form-signin-heading">Please log in</h2>
-        {% if error is defined %}
+        {% if error is not empty %}
         <div class="alert alert-danger">
                 {{ error }}
             </div>
@@ -18,5 +18,7 @@
         <input type="password" name="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
     </form>
-    <div>{{ dump() }}</div>
+    {% if debug is defined %}
+        <div>{{ dump() }}</div>
+    {% endif %}
 {% endblock %}

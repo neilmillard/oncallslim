@@ -12,6 +12,11 @@ $app->get('/profile', 'App\Action\ProfileAction:dispatch')
     ->setName('profile')
     ->add('Authenticator\Middleware:auth');
 
+/** @noinspection PhpUndefinedMethodInspection */
+$app->map(['GET','POST'],'/edituser/{username}', 'App\Action\ProfileAction:edituser')
+    ->setName('edituser')
+    ->add('Authenticator\Middleware:auth');
+
 $app->map(['GET', 'POST'], '/login', 'App\Action\LoginAction:login')
     ->setName('login');
 

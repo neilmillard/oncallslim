@@ -46,12 +46,13 @@ $container['dsn'] = function ($c) {
     return $dsn;
 };
 
-R::setup($container['dsn'], $container['settings']['database']['username'], $container['settings']['database']['password'],TRUE);
+$frozen = TRUE;
+\RedBeanPHP\R::setup($container['dsn'], $container['settings']['database']['username'], $container['settings']['database']['password'],$frozen);
 
 // database mysqli connection
 $container['database'] = function ($c) {
     $settings = $c['settings']['database'];
-    $connection = new \App\Database\Mysqldbo($c['dsn'], $settings);
+    $connection = new \PDO($c['dsn'],$settings['username'],$settings['password']);
     //$connection = new mysqli($settings['host'], $settings['username'], $settings['password'], $settings['database']);
     return $connection;
 };
@@ -83,7 +84,7 @@ $container['App\Action\OncallAction'] = function ($c) {
 };
 
 $container['App\Action\ProfileAction'] = function ($c) {
-    return new App\Action\ProfileAction($c['view'], $c['logger'], $c['router']);
+    return new App\Action\ProfileAction($c['view'], $c['logger'], $c['router'], $c['flash'], $c['authenticator']);
 };
 
 $container['App\Action\LoginAction'] = function ($c) {
