@@ -52,7 +52,7 @@ final class ProfileAction
         if ($request->isPost()) {
             $data = $request->getParams();
             //$username = $request->getParam('username');
-            $user->import($data,'fullname,shortdial,longdial');
+            $user->import($data,'fullname,shortdial,longdial,colour,mobile,home');
 
             $password = $request->getParam('password');
             if(!empty($password)){
