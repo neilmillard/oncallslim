@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS `atss` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table apps.diary_life
-DROP TABLE IF EXISTS `diary_life`;
-CREATE TABLE IF NOT EXISTS `diary_life` (
+-- Dumping structure for table apps.diarylife
+DROP TABLE IF EXISTS `diarylife`;
+CREATE TABLE IF NOT EXISTS `diarylife` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS `diary_life` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table apps.health_mf
-DROP TABLE IF EXISTS `health_mf`;
-CREATE TABLE IF NOT EXISTS `health_mf` (
+-- Dumping structure for table apps.healthmf
+DROP TABLE IF EXISTS `healthmf`;
+CREATE TABLE IF NOT EXISTS `healthmf` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS `health_mf` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table apps.health_win
-DROP TABLE IF EXISTS `health_win`;
-CREATE TABLE IF NOT EXISTS `health_win` (
+-- Dumping structure for table apps.healthwin
+DROP TABLE IF EXISTS `healthwin`;
+CREATE TABLE IF NOT EXISTS `healthwin` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -67,9 +67,9 @@ CREATE TABLE IF NOT EXISTS `health_win` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table apps.ins_mf
-DROP TABLE IF EXISTS `ins_mf`;
-CREATE TABLE IF NOT EXISTS `ins_mf` (
+-- Dumping structure for table apps.insmf
+DROP TABLE IF EXISTS `insmf`;
+CREATE TABLE IF NOT EXISTS `insmf` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `ins_mf` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table apps.ins_win
-DROP TABLE IF EXISTS `ins_win`;
-CREATE TABLE IF NOT EXISTS `ins_win` (
+-- Dumping structure for table apps.inswin
+DROP TABLE IF EXISTS `inswin`;
+CREATE TABLE IF NOT EXISTS `inswin` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -95,9 +95,9 @@ CREATE TABLE IF NOT EXISTS `ins_win` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table apps.life_mf
-DROP TABLE IF EXISTS `life_mf`;
-CREATE TABLE IF NOT EXISTS `life_mf` (
+-- Dumping structure for table apps.lifemf
+DROP TABLE IF EXISTS `lifemf`;
+CREATE TABLE IF NOT EXISTS `lifemf` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -109,9 +109,9 @@ CREATE TABLE IF NOT EXISTS `life_mf` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table apps.life_win
-DROP TABLE IF EXISTS `life_win`;
-CREATE TABLE IF NOT EXISTS `life_win` (
+-- Dumping structure for table apps.lifewin
+DROP TABLE IF EXISTS `lifewin`;
+CREATE TABLE IF NOT EXISTS `lifewin` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -151,9 +151,9 @@ INSERT INTO `month` (`ID`, `NAME`, `DAYS`) VALUES
 (12, 'December', 31);
 
 
--- Dumping structure for table apps.uk_shift
-DROP TABLE IF EXISTS `uk_shift`;
-CREATE TABLE IF NOT EXISTS `uk_shift` (
+-- Dumping structure for table apps.ukshift
+DROP TABLE IF EXISTS `ukshift`;
+CREATE TABLE IF NOT EXISTS `ukshift` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -178,26 +178,26 @@ CREATE TABLE IF NOT EXISTS `users` (
   `longdial` char(15) DEFAULT NULL,
   `mobile` char(15) DEFAULT NULL,
   `home` char(15) DEFAULT NULL,
-  `ins_mf` binary(1) DEFAULT NULL,
-  `ins_win` binary(1) DEFAULT NULL,
-  `health_mf` binary(1) DEFAULT NULL,
-  `health_win` binary(1) DEFAULT NULL,
-  `life_mf` binary(1) DEFAULT NULL,
-  `life_win` binary(1) DEFAULT NULL,
-  `wealth_mf` binary(1) DEFAULT NULL,
-  `wealth_win` binary(1) DEFAULT NULL,
-  `uk_shift` binary(1) DEFAULT NULL,
+  `insmf` binary(1) DEFAULT NULL,
+  `inswin` binary(1) DEFAULT NULL,
+  `healthmf` binary(1) DEFAULT NULL,
+  `healthwin` binary(1) DEFAULT NULL,
+  `lifemf` binary(1) DEFAULT NULL,
+  `lifewin` binary(1) DEFAULT NULL,
+  `wealthmf` binary(1) DEFAULT NULL,
+  `wealthwin` binary(1) DEFAULT NULL,
+  `ukshift` binary(1) DEFAULT NULL,
   `atss` binary(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='InnoDB free: 11264 kB';
 
-INSERT INTO `users` (`name`, `fullname`, `password`, `hash`, `colour`, `shortdial`, `longdial`, `mobile`, `home`, `ins_mf`, `ins_win`, `health_mf`, `health_win`, `life_mf`, `life_win`, `wealth_mf`, `wealth_win`, `uk_shift`, `atss`) VALUES
+INSERT INTO `users` (`name`, `fullname`, `password`, `hash`, `colour`, `shortdial`, `longdial`, `mobile`, `home`, `insmf`, `inswin`, `healthmf`, `healthwin`, `lifemf`, `lifewin`, `wealthmf`, `wealthwin`, `ukshift`, `atss`) VALUES
 ('ADMIN', 'Administrator', 'Password1', '', 'FAD2F5', '611 7739', '07977 917739', '', '', '1', '0', '0', '1', '0', '0', '0', '1', '0', '0');
 
 
--- Dumping structure for table apps.wealth_mf
-DROP TABLE IF EXISTS `wealth_mf`;
-CREATE TABLE IF NOT EXISTS `wealth_mf` (
+-- Dumping structure for table apps.wealthmf
+DROP TABLE IF EXISTS `wealthmf`;
+CREATE TABLE IF NOT EXISTS `wealthmf` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,
@@ -209,9 +209,9 @@ CREATE TABLE IF NOT EXISTS `wealth_mf` (
 -- Data exporting was unselected.
 
 
--- Dumping structure for table apps.wealth_win
-DROP TABLE IF EXISTS `wealth_win`;
-CREATE TABLE IF NOT EXISTS `wealth_win` (
+-- Dumping structure for table apps.wealthwin
+DROP TABLE IF EXISTS `wealthwin`;
+CREATE TABLE IF NOT EXISTS `wealthwin` (
   `DAY` int(11) DEFAULT NULL,
   `MONTH` int(11) DEFAULT NULL,
   `YEAR` int(11) DEFAULT NULL,

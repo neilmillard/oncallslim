@@ -1,0 +1,61 @@
+{#
+ time can be any string acceptable by http://www.php.net/strtotime, the
+ template will output that time's month.
+
+ If you don't want to pass in a date you can set time like this:
+ {% set time = "now"|date("U") %}
+ {% set time = "December 2012"|date("U") %}
+
+ How ever you want to output items onto the calendar is a different issue,
+ but I'd assume pushing everything into an array numerically indexed by that day:
+ $days = array(1=>array('Something on the first'),31=>array('Halloween'));
+
+#}
+<table>
+    <thead>
+    <tr>
+        <th colspan="7" class="center">
+            {{ time|date('F') }}
+        </th>
+    </tr>
+    <tr>
+        <th width="15%">Mon</th>
+        <th width="15%">Tue</th>
+        <th width="16%">Wed</th>
+        <th width="15%">Thu</th>
+        <th width="15%">Fri</th>
+        <th width="12%">Sat</th>
+        <th width="12%">Sun</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        {% set daysInMonth = time|date('t') %}
+        {% set startDow = time|date('F 1\\s\\t Y')|date('N') - 1 %}
+        {% set dow = startDow %}
+        {% for day in range(1,daysInMonth) %}
+        {% if loop.first and startDow != 0 %}
+            <td colspan="{{ startDow }}"></td>
+        {% endif %}
+        <td>
+            <div>
+                <div>{{ day }}</div>
+                <div>
+                    {# day content here #}
+                </div>
+            </div>
+        </td>
+        {% if loop.last and dow != 6 %}
+            <td colspan="{{ 6 - dow }}">&nbsp;</td>
+        {% endif %}
+        {% if dow == 6 %}
+        {% set dow = 0 %}
+    </tr>
+    <tr>
+        {% else %}
+            {% set dow = dow + 1 %}
+        {% endif %}
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
