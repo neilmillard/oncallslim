@@ -4,7 +4,7 @@
 $app->get('/', 'App\Action\HomeAction:dispatch')
     ->setName('homepage');
 
-$app->get('/oncall/{rota}', 'App\Action\OncallAction:dispatch')
+$app->get('/oncall/{rota}[/{display:\d+}]', 'App\Action\OncallAction:dispatch')
     ->setName('oncall');
 
 /** @noinspection PhpUndefinedMethodInspection */

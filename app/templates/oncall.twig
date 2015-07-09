@@ -10,9 +10,29 @@
     <h2>Application Services UK Oncall Rotas</h2>
 </div>
 
-Oncall Route Template
+{{ title }}
 <br/>
+
 Rota: {{ rota }}
 <br/><br/>
+<table>
+    <tr>
+        <td width="10%">&nbsp;</td>
+        {% set count=1 %}
+        {% for time in months  %}
+            {% set monthtime = months[count] %}
+            <td>
+            {{ include('calendar.twig') }}
+            </td>
+
+            {% if count % 3 == 0 %}
+                </tr><tr>
+                <td width="10%">&nbsp;</td>
+            {% endif %}
+        {% set count = count +1 %}
+        {% endfor %}
+    </tr>
+</table>
+
 
 {% endblock %}
