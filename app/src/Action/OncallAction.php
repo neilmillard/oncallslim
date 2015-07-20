@@ -35,17 +35,20 @@ final class OncallAction
         $loggedIn = $this->authenticator->hasIdentity();
         $title = "";
         $comments = "";
+        $sql = "";
         switch ($rota) {
             case "healthmf":
                 $title = "Health and Insurance Mainframe Shared";
+                $sql = "health_mf = 1";
                 break;
             case "healthwin":
                 $title = "Health and Insurance Windows Apps";
+                $sql = "health_win = 1";
                 break;
             case "wealthmf":
                 $title = "Wealth Mainframe Apps";
+                $sql = "wealth_mf = 1";
                 break;
-
         }
 
         $months = [];
@@ -79,8 +82,8 @@ final class OncallAction
                 $colour[$i][$dayCount] = "#6622" . ($dayCount + 10);
             }
         }
-        // TODO get users array from database, fullname, colour, shortdial, longdial, mobile, home WHERE rota = 1
-        $users = array(['fullname' => 'admin', 'colour' => '#893354', 'shortdial' => '7445652']);
+
+        $users = R::find('users', $sql );
 
         $this->view->render($response, 'oncall.twig', [
             'rota' => $rota,
@@ -142,22 +145,19 @@ final class OncallAction
         }
 
         $userlist = [];
-        // TODO get userlist from database for this $rota
-        $user= ['name'=>'admin','fullname'=>'Administrator','colour'=>'#882245'];
-
+        $sql = '';
+        //TODO refactor to enable config to read rotas
         switch ($rota) {
             case "healthmf":
                 $sql = "health_mf = 1";
                 break;
             case "healthwin":
-                $title = "health_win = 1";
+                $sql = "health_win = 1";
                 break;
             case "wealthmf":
-                $title = "wealth_mf = 1";
+                $sql = "wealth_mf = 1";
                 break;
-
         }
-
         $users = R::find('users', $sql );
         foreach ($users as $user){
             $userlist[] = [
