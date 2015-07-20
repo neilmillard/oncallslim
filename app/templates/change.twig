@@ -43,24 +43,20 @@
     </tr>
 </table>
 <br/>
-
-
     <table>
     <tr>
-        {% set count=1 %}
-        {% for time in months  %}
-            {% set monthtime = months[count] %}
-            <td width="10%">&nbsp;</td>
-            <td>
-            {{ include('calendar.twig', {'data': data[count],'colour': colour[count]}) }}
-            </td>
-
-            {% if count % 3 == 0 %}
-                </tr><tr>
-            {% endif %}
-        {% set count = count +1 %}
-        {% endfor %}
+        <td width="360px">&nbsp;</td>
+        <td width="100px" align='center'><b>1 day only</b></td>
+        <td width="60px">&nbsp;</td>
+        <td width="100px" align='center'><b>up to Sunday</b></td>
     </tr>
-</table>
-
+    {% for user in userlist %}
+    <tr>
+        <td>&nbsp;</td>
+        <td bgcolor="{{ user.colour }}">{{ user.linkday|raw }}</td>
+        <td>&nbsp;</td>
+        <td bgcolor="{{ user.colour }}">{{ user.linkweek|raw }}</td>
+    </tr>
+    {% endfor %}
+    </table>
 {% endblock %}

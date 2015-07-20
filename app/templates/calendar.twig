@@ -37,11 +37,18 @@
         {% if loop.first and startDow != 0 %}
             <td colspan="{{ startDow }}"></td>
         {% endif %}
-        <td>
+        {% if colour is defined %}
+            <td bgcolor="{{ colour[day] }}">
+        {% else %}
+            <td>
+        {% endif %}
             <div>
-                <div>{{ day }}</div>
                 <div>
-                    {# day content here #}
+                    {% if data is defined %}
+                    {{ data[day]|raw }}
+                    {% else %}
+                        {{ day }}
+                    {% endif %}
                 </div>
             </div>
         </td>

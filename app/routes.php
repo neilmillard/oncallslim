@@ -8,6 +8,11 @@ $app->get('/oncall/{rota}[/{display:\d+}]', 'App\Action\OncallAction:dispatch')
     ->setName('oncall');
 
 /** @noinspection PhpUndefinedMethodInspection */
+$app->get('/change/{rota}', 'App\Action\OncallAction:change')
+    ->setName('change')
+    ->add('Authenticator\Middleware:auth');
+
+/** @noinspection PhpUndefinedMethodInspection */
 $app->get('/profile', 'App\Action\ProfileAction:dispatch')
     ->setName('profile')
     ->add('Authenticator\Middleware:auth');

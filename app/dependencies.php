@@ -80,7 +80,7 @@ $container['App\Action\HomeAction'] = function ($c) {
 };
 
 $container['App\Action\OncallAction'] = function ($c) {
-    return new App\Action\OncallAction($c['view'], $c['logger'], $c['router']);
+    return new App\Action\OncallAction($c['view'], $c['logger'], $c['router'], $c['authenticator']);
 };
 
 $container['App\Action\ProfileAction'] = function ($c) {
