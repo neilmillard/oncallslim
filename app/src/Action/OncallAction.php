@@ -3,6 +3,7 @@ namespace App\Action;
 
 use App\Authentication\Authenticator;
 use RedBeanPHP\R;
+use Slim\Flash\Messages;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Router;
@@ -15,12 +16,14 @@ final class OncallAction
     private $logger;
     private $router;
     private $authenticator;
+    private $flash;
 
-    public function __construct(Twig $view, Logger $logger, Router $router, Authenticator $authenticator)
+    public function __construct(Twig $view, Logger $logger, Router $router, Messages $flash, Authenticator $authenticator)
     {
         $this->view = $view;
         $this->logger = $logger;
         $this->router = $router;
+        $this->flash = $flash;
         $this->authenticator = $authenticator;
     }
 
@@ -79,7 +82,15 @@ final class OncallAction
             //TODO grab rota from database
             // select user.colour, rota.name from rota,user where month=thismonth and year=thisyear and user.name = rota.name
             foreach (range(1, 31) as $dayCount) {
-                $colour[$i][$dayCount] = "#6622" . ($dayCount + 10);
+                $rotaDay = R::findOne($rota,' month = :month AND year = :year AND day = :day ', [':day' => $dayCount, ':month' => $thisMonth , ':year' => $thisYear] );
+                if(!empty($rotaDay)){
+                    // TODO: need to access as alias http://www.redbeanphp.com/aliases
+                    $onCallUser = $rotaDay->name;
+                    $colour[$i][$dayCount] = $onCallUser->colour; //"#6622" . ($dayCount + 10);
+                } else {
+                    $colour[$i][$dayCount] = "#dddddd";
+                }
+
             }
         }
 
@@ -108,10 +119,14 @@ final class OncallAction
         $month = $request->getParam('month');
         $monthObj = \DateTime::createFromFormat('!m', $month);
         $monthName = $monthObj->format('F');
-        $year = $request->getParam('year');
+        $year = (int) $request->getParam('year');
         $title = "Please select who is oncall for - $day $monthName $year";
-
         if(!empty($name)) {
+            $rotaUser = R::findOne('users',' name = :username ',['username'=>$name]);
+            if(empty($rotaUser)){
+                $this->flash->addMessage('flash',"$name not found");
+                return $response->withRedirect($this->router->pathFor('oncall',['rota'=>$rota]));
+            }
             $oldDay = $day;
             $oldMonth = $month;
             $oldYear = $year;
@@ -129,24 +144,26 @@ final class OncallAction
                 $loggedInName = $id['name'];
                 $who = strtoupper($loggedInName);
 
-                //TODO update or create database entry.
-                // insert into $rota ($name,$day,$month,$year,now(),$who)
                 $rotaDay = R::findOrCreate($rota, [
                     'day' => $day,
                     'month' => $month,
                     'year' => $year
                 ]);
-                $rotaDay->name = $name;
-                $rotaDay->who = $who;
+                $rotaDay->name = $rotaUser;
+                $id=$this->authenticator->getIdentity();
+                $whoUser = R::findOne('users',' name = :username ',['username'=>$id['name']]);
+                $rotaDay->who = $whoUser;
                 $rotaDay->stamp = date("Y-m-d H:i:s");
                 R::store($rotaDay);
 
+                $this->flash->addMessage('flash',"Rota updated");
+                return $response->withRedirect($this->router->pathFor('oncall',['rota'=>$rota]));
             }
         }
 
         $userlist = [];
         $sql = '';
-        //TODO refactor to enable config to read rotas
+        //TODO refactor to read rotas from database
         switch ($rota) {
             case "healthmf":
                 $sql = "health_mf = 1";

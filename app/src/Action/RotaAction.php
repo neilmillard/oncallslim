@@ -59,6 +59,25 @@ final class RotaAction
             $rota->import($data,'name,fullname,title,comment');
 
             $id = R::store($rota);
+
+            try{
+                $fieldtest = R::inspect($rota->name);
+            } catch( \Exception $e) {
+                //thaw for creation
+                R::freeze(['users']);
+                $rotaUser = R::load('users',1);
+                $rotaDay = R::findOrCreate($rota->name, [
+                    'day' => 29,
+                    'month' => 2,
+                    'year' => 2015
+                ]);
+                $rotaDay->name = $rotaUser;
+                $rotaDay->who = $rotaUser;
+                $rotaDay->stamp = date("Y-m-d H:i:s");
+                R::store($rotaDay);
+                R::freeze(true);
+            }
+
             $this->flash->addMessage('flash',"$rota->name updated");
             return $response->withRedirect($this->router->pathFor('rotas'));
         }
@@ -77,6 +96,7 @@ final class RotaAction
         $rota = R::findOne('rotas', ' name = ? ',[ $name ]);
         if(!empty($rota)){
             R::trash($rota);
+            R::wipe($name);
             $this->flash->addMessage('flash',"$name deleted");
         } else {
             $this->flash->addMessage('flash',"$name Rota not found");
