@@ -1,0 +1,14 @@
+{% extends 'layout.twig' %}
+
+{% block page_title %}{{ parent() }} | Rotas{% endblock %}
+
+{% block content %}
+<div>
+    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ url_for('users') }}">Manage Users</a>
+</div>
+<div>
+    <a class="btn" style="background: #9834db;color: #ffffff;" href="{{ url_for('rotas') }}">Manage Rotas</a>
+</div>
+<br/><br/>
+
+{% endblock %}

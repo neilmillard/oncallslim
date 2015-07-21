@@ -22,6 +22,31 @@ $app->map(['GET','POST'],'/edituser/{username}', 'App\Action\ProfileAction:editu
     ->setName('edituser')
     ->add('Authenticator\Middleware:auth');
 
+/** @noinspection PhpUndefinedMethodInspection */
+$app->get('/rotas', 'App\Action\RotaAction:dispatch')
+    ->setName('rotas')
+    ->add('Authenticator\Middleware:auth');
+
+/** @noinspection PhpUndefinedMethodInspection */
+$app->map(['GET','POST'],'/editrota/{name}', 'App\Action\RotaAction:editRota')
+    ->setName('editrota')
+    ->add('Authenticator\Middleware:auth');
+
+/** @noinspection PhpUndefinedMethodInspection */
+$app->get('/deleterota/{name}', 'App\Action\RotaAction:deleteRota')
+    ->add('Authenticator\Middleware:auth');
+
+/** @noinspection PhpUndefinedMethodInspection */
+$app->get('/admin', 'App\Action\AdminAction:dispatch')
+    ->setName('admin')
+    ->add('Authenticator\Middleware:auth');
+
+/** @noinspection PhpUndefinedMethodInspection */
+$app->get('/users', 'App\Action\UserAction:dispatch')
+    ->setName('users')
+    ->add('Authenticator\Middleware:auth');
+
+
 $app->map(['GET', 'POST'], '/login', 'App\Action\LoginAction:login')
     ->setName('login');
 

@@ -46,7 +46,7 @@ $container['dsn'] = function ($c) {
     return $dsn;
 };
 
-$frozen = TRUE;
+$frozen = true;
 \RedBeanPHP\R::setup($container['dsn'], $container['settings']['database']['username'], $container['settings']['database']['password'],$frozen);
 
 // database mysqli connection
@@ -86,6 +86,19 @@ $container['App\Action\OncallAction'] = function ($c) {
 $container['App\Action\ProfileAction'] = function ($c) {
     return new App\Action\ProfileAction($c['view'], $c['logger'], $c['router'], $c['flash'], $c['authenticator']);
 };
+
+$container['App\Action\RotaAction'] = function ($c) {
+    return new App\Action\RotaAction($c['view'], $c['logger'], $c['router'], $c['flash'], $c['authenticator']);
+};
+
+$container['App\Action\AdminAction'] = function ($c) {
+    return new App\Action\AdminAction($c['view'], $c['logger'], $c['router'], $c['flash'], $c['authenticator']);
+};
+
+$container['App\Action\UserAction'] = function ($c) {
+    return new App\Action\UserAction($c['view'], $c['logger'], $c['router'], $c['flash'], $c['authenticator']);
+};
+
 
 $container['App\Action\LoginAction'] = function ($c) {
     return new App\Action\LoginAction($c['view'], $c['logger'], $c['router'], $c['authenticator'], $c['flash']);

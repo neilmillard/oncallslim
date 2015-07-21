@@ -1,0 +1,23 @@
+{% extends 'layout.twig' %}
+
+{% block page_title %}{{ parent() }} | Rotas{% endblock %}
+
+{% block content %}
+{% for rota in rotas %}
+<div>
+    <h2>{{ rota.name }}</h2>
+    <p> Fullname: {{ rota.fullname }}</p>
+    <p> Title: {{ rota.title }}</p>
+    <p> comment: {{ rota.comment }}</p>
+    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ url_for('editrota',{'name': rota.name}) }}">
+        Update
+    </a>
+</div>
+{% endfor %}
+
+    <div>
+        <a class="btn" style="background: #9834db;color: #ffffff;" href="{{ url_for('editrota',{'name': 'new'}) }}">Create New Rota</a>
+    </div>
+<br/><br/>
+
+{% endblock %}

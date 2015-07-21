@@ -1,0 +1,18 @@
+{% extends 'layout.twig' %}
+
+{% block page_title %}{{ parent() }} | Edit Rota{% endblock %}
+
+{% block content %}
+
+    <form class="form-signin well well-sm" role="form" name="rota" id="login" method="post">
+        <h2 class="form-signin-heading">Edit Rota</h2>
+        <input type="text" name="name" class="form-control" placeholder="name" value="{{ name }}" autofocus required>
+        <input type="text" name="title" class="form-control" placeholder="title" value="{{ title }}" required>
+        <input type="text" name="comment" class="form-control" placeholder="comment" value="{{ comment }}" >
+        <input type="text" name="fullname" class="form-control" placeholder="fullname" value="{{ fullname }}" >
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+    </form>
+
+<br/><br/>
+
+{% endblock %}

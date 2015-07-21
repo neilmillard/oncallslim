@@ -30,16 +30,18 @@
 <div class="container">
     <div class="header">
         <ul class="nav nav-pills pull-right">
+            {% if identity.name == 'ADMIN' %}
+                <li><a href="{{ url_for('admin') }}">AdminMenu</a></li>
+            {% endif %}
             <li><a href="{{ url_for('homepage') }}">Home</a></li>
             <li><a href="{{ url_for('profile') }}">Profile</a></li>
-            <!-- <li><a href="/admin">Admin</a></li> -->
             {% if hasIdentity %}
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% else %}
                 <li><a href="{{ url_for('login') }}">Login</a></li>
             {% endif %}
         </ul>
-        <h3 class="text-muted">&nbsp; {{ identity.name|capitalize }}</h3>
+        <h4 class="text-muted">&nbsp; {{ identity.name|capitalize }}</h4>
     </div>
 
     {% if flash is not empty %}
