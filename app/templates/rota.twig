@@ -10,9 +10,15 @@
         <input type="text" name="title" class="form-control" placeholder="title" value="{{ title }}" required>
         <input type="text" name="comment" class="form-control" placeholder="comment" value="{{ comment }}" >
         <input type="text" name="fullname" class="form-control" placeholder="fullname" value="{{ fullname }}" >
+        <ul>
+            {% for user in userList %}
+                <li><input type="checkbox" name="users[]" value="{{user.id}}" {% if userCheck[user.id] is defined %}
+                {{ userCheck[user.id] }}
+                {% endif %}>{{ user.name }}</li>
+            {% endfor %}
+        </ul>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
     </form>
 
 <br/><br/>
-
 {% endblock %}

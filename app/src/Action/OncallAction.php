@@ -35,29 +35,15 @@ final class OncallAction
         $prev = $request->getParam('prev', 0);
         $dis = 5;
         $loggedIn = $this->authenticator->hasIdentity();
-        $title = "";
         $comments = "";
-        $sql = "";
-        //TODO users -> rota link
-        //TODO get rotas from database
-        switch ($rota) {
-            case "healthmf":
-                $title = "Health and Insurance Mainframe Shared";
-                $sql = "health_mf = 1";
-                break;
-            case "healthwin":
-                $title = "Health and Insurance Windows Apps";
-                $sql = "health_win = 1";
-                break;
-            case "wealthmf":
-                $title = "Wealth Mainframe Apps";
-                $sql = "wealth_mf = 1";
-                break;
-            default:
-                //rota not defined
-                $this->flash->addMessage('flash',"sorry $rota not found");
-                return $response->withRedirect($this->router->pathFor('rotas'));
+        $rotaBean = R::findOne('rotas',' name = :name ', [':name'=>$rota] );
+        if(empty($rotaBean)){
+            $this->flash->addMessage('flash',"sorry $rota not found");
+            return $response->withRedirect($this->router->pathFor('homepage'));
         }
+        $title = $rotaBean->title;
+
+        $users = $rotaBean->sharedUsersList;
 
         $months = [];
         $colour = [];
@@ -95,8 +81,6 @@ final class OncallAction
 
             }
         }
-
-        $users = R::find('users', $sql );
 
         $this->view->render($response, 'oncall.twig', [
             'rota' => $rota,
@@ -142,10 +126,6 @@ final class OncallAction
                 $month = date('n', mktime(0, 0, 0, $oldMonth, ($oldDay + $x), $oldYear));
                 $year = date('Y', mktime(0, 0, 0, $oldMonth, ($oldDay + $x), $oldYear));
 
-                $id = $this->authenticator->getIdentity();
-                $loggedInName = $id['name'];
-                $who = strtoupper($loggedInName);
-
                 $rotaDay = R::findOrCreate($rota, [
                     'day' => $day,
                     'month' => $month,
@@ -162,22 +142,13 @@ final class OncallAction
             $this->flash->addMessage('flash',"Rota updated");
             return $response->withRedirect($this->router->pathFor('oncall',['rota'=>$rota]));
         }
-
-        $userlist = [];
-        $sql = '';
-        //TODO refactor to read rotas from database
-        switch ($rota) {
-            case "healthmf":
-                $sql = "health_mf = 1";
-                break;
-            case "healthwin":
-                $sql = "health_win = 1";
-                break;
-            case "wealthmf":
-                $sql = "wealth_mf = 1";
-                break;
+        $rotaBean = R::findOne('rotas',' name = :name ', [':name'=>$rota] );
+        if(empty($rotaBean)){
+            $this->flash->addMessage('flash',"sorry $rota not found");
+            return $response->withRedirect($this->router->pathFor('homepage'));
         }
-        $users = R::find('users', $sql );
+        $userlist = [];
+        $users = $rotaBean->sharedUsersList;
         foreach ($users as $user){
             $userlist[] = [
                 'colour'=>$user['colour'],

@@ -31,7 +31,6 @@ final class RotaAction
     {
         $this->logger->info("Profile page action dispatched");
         $data = [];
-        // TODO list all current rotas
         $rotas = R::findAll( 'rotas' );
 
         $this->view->render($response, 'rotas.twig',['rotas'=> $rotas]);
@@ -40,7 +39,10 @@ final class RotaAction
 
     public function editRota(Request $request, Response $response, Array $args)
     {
-        //TODO: restrict username edit to logged in user, or role=admin
+        if(strtolower($id['name'])!='admin'){
+            $this->flash->addMessage('flash','Access Denied');
+            return $response->withRedirect($this->router->pathFor('homepage'));
+        }
         $name = $args['name'];
         if(empty($name)){
             $this->flash->addMessage('flash','No rota specified');
@@ -57,7 +59,11 @@ final class RotaAction
             $data = $request->getParams();
             //$username = $request->getParam('username');
             $rota->import($data,'name,fullname,title,comment');
-
+            $rota->sharedUsersList = [];
+            foreach($data['users'] as $checkUserID){
+                $rotaUser = R::load('users',$checkUserID);
+                $rota->sharedUsersList[] = $rotaUser;
+            }
             $id = R::store($rota);
 
             try{
@@ -71,6 +77,7 @@ final class RotaAction
                     'month' => 2,
                     'year' => 2015
                 ]);
+                $rotaUser = R::load('users',1);
                 $rotaDay->name = $rotaUser;
                 $rotaDay->who = $rotaUser;
                 $rotaDay->stamp = date("Y-m-d H:i:s");
@@ -81,7 +88,16 @@ final class RotaAction
             $this->flash->addMessage('flash',"$rota->name updated");
             return $response->withRedirect($this->router->pathFor('rotas'));
         }
-        $this->view->render($response, 'rota.twig',$rota->export());
+        $userList = R::findAll('users');
+        $data = $rota->export();
+        $data['userList'] = $userList;
+        $users = [];
+        $userRota = $rota->sharedUsersList;
+        foreach( $userRota as $userCheck){
+            $users[$userCheck->id]='checked';
+        }
+        $data['userCheck']=$users;
+        $this->view->render($response, 'rota.twig',$data);
         return $response;
 
     }
