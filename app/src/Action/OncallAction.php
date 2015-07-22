@@ -34,11 +34,12 @@ final class OncallAction
         $display = isset($args['display']) ? $args['display'] : 6;
         $prev = $request->getParam('prev', 0);
         $dis = 5;
-        //TODO check if logged in.
         $loggedIn = $this->authenticator->hasIdentity();
         $title = "";
         $comments = "";
         $sql = "";
+        //TODO users -> rota link
+        //TODO get rotas from database
         switch ($rota) {
             case "healthmf":
                 $title = "Health and Insurance Mainframe Shared";
@@ -52,6 +53,10 @@ final class OncallAction
                 $title = "Wealth Mainframe Apps";
                 $sql = "wealth_mf = 1";
                 break;
+            default:
+                //rota not defined
+                $this->flash->addMessage('flash',"sorry $rota not found");
+                return $response->withRedirect($this->router->pathFor('rotas'));
         }
 
         $months = [];
@@ -74,21 +79,18 @@ final class OncallAction
 
             if ($loggedIn) {
                 foreach (range(1, 31) as $dayCount) {
-                    $data[$i][$dayCount] = "<a href=\"/change/$rota?DAY=$dayCount&month=$thisMonth&year=$thisYear&prev=$prev\">$dayCount</a>";
+                    $data[$i][$dayCount] = "<a href=\"/change/$rota?day=$dayCount&month=$thisMonth&year=$thisYear&prev=$prev\">$dayCount</a>";
                 }
             } else {
                 $data[$i] = range(0, 31);
             }
-            //TODO grab rota from database
-            // select user.colour, rota.name from rota,user where month=thismonth and year=thisyear and user.name = rota.name
             foreach (range(1, 31) as $dayCount) {
                 $rotaDay = R::findOne($rota,' month = :month AND year = :year AND day = :day ', [':day' => $dayCount, ':month' => $thisMonth , ':year' => $thisYear] );
                 if(!empty($rotaDay)){
-                    // TODO: need to access as alias http://www.redbeanphp.com/aliases
-                    $onCallUser = $rotaDay->name;
+                    $onCallUser = $rotaDay->fetchAs( 'users' )->name;
                     $colour[$i][$dayCount] = $onCallUser->colour; //"#6622" . ($dayCount + 10);
                 } else {
-                    $colour[$i][$dayCount] = "#dddddd";
+                    $colour[$i][$dayCount] = "#eeeeee";
                 }
 
             }
@@ -119,7 +121,7 @@ final class OncallAction
         $month = $request->getParam('month');
         $monthObj = \DateTime::createFromFormat('!m', $month);
         $monthName = $monthObj->format('F');
-        $year = (int) $request->getParam('year');
+        $year = $request->getParam('year');
         $title = "Please select who is oncall for - $day $monthName $year";
         if(!empty($name)) {
             $rotaUser = R::findOne('users',' name = :username ',['username'=>$name]);
@@ -127,9 +129,9 @@ final class OncallAction
                 $this->flash->addMessage('flash',"$name not found");
                 return $response->withRedirect($this->router->pathFor('oncall',['rota'=>$rota]));
             }
-            $oldDay = $day;
-            $oldMonth = $month;
-            $oldYear = $year;
+            $oldDay = (int) $day;
+            $oldMonth = (int) $month;
+            $oldYear = (int) $year;
 
             $whatDay = (8 - date('w', mktime(0, 0, 0, $oldMonth, $oldDay, $oldYear)));
             if (($whatDay == 8) || ($request->getParam('allweek') == null)) {
@@ -151,14 +153,14 @@ final class OncallAction
                 ]);
                 $rotaDay->name = $rotaUser;
                 $id=$this->authenticator->getIdentity();
-                $whoUser = R::findOne('users',' name = :username ',['username'=>$id['name']]);
+                $whoUser = R::load('users',$id['id']);
                 $rotaDay->who = $whoUser;
                 $rotaDay->stamp = date("Y-m-d H:i:s");
                 R::store($rotaDay);
-
-                $this->flash->addMessage('flash',"Rota updated");
-                return $response->withRedirect($this->router->pathFor('oncall',['rota'=>$rota]));
             }
+
+            $this->flash->addMessage('flash',"Rota updated");
+            return $response->withRedirect($this->router->pathFor('oncall',['rota'=>$rota]));
         }
 
         $userlist = [];
