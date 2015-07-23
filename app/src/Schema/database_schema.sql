@@ -54,21 +54,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `longdial` char(15) DEFAULT NULL,
   `mobile` char(15) DEFAULT NULL,
   `home` char(15) DEFAULT NULL,
-  `ins_mf` binary(1) DEFAULT NULL,
-  `ins_win` binary(1) DEFAULT NULL,
-  `health_mf` binary(1) DEFAULT NULL,
-  `health_win` binary(1) DEFAULT NULL,
-  `life_mf` binary(1) DEFAULT NULL,
-  `life_win` binary(1) DEFAULT NULL,
-  `wealth_mf` binary(1) DEFAULT NULL,
-  `wealth_win` binary(1) DEFAULT NULL,
-  `uk_shift` binary(1) DEFAULT NULL,
-  `atss` binary(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='InnoDB free: 11264 kB';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='InnoDB free: 11264 kB';
 
--- Data exporting was unselected.
+INSERT INTO `users` (`id`, `name`, `fullname`, `password`, `hash`, `colour`, `shortdial`, `longdial`, `mobile`, `home`) VALUES
+	(1, 'ADMIN', 'Administrator_', 'Password1', '$2y$10$/Z3v5y2T/jBWaNcxXzFsA.KyF34yy0Dpbxz/R6Ba09Wn19J2tiSiW', 'FAD2F5', '611 7739', '07977 917739', '', '');
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
