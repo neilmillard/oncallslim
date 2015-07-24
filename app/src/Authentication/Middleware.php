@@ -37,7 +37,7 @@ class Middleware {
 
         if (!$hasIdentity) {
             //throw new HttpUnauthorizedException();
-            $_SESSION['urlRedirect'] = $request->getUri();
+            $_SESSION['urlRedirect'] = (string) $request->getUri();
             //$app->flash('error', 'Login required');
             return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('login'));
 

@@ -40,6 +40,7 @@ final class LoginAction
 
         if (isset($_SESSION['urlRedirect'])) {
             $urlRedirect = $_SESSION['urlRedirect'];
+            unset($_SESSION['urlRedirect']);
         }
 
         if ($request->isPost()) {
