@@ -64,7 +64,7 @@ abstract class AbstractAdapter implements ValidatableAdapterInterface
      */
     public function setIdentity($identity)
     {
-        $this->identity = $identity;
+        $this->identity = strtolower($identity);
 
         return $this;
     }

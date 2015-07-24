@@ -40,7 +40,7 @@ final class ProfileAction
 
     public function editUser(Request $request, Response $response, Array $args)
     {
-        $username = $args['username'];
+        $username = strtolower($args['username']);
         if(empty($username)){
             $this->flash->addMessage('flash','No user specified');
             return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('profile'));
