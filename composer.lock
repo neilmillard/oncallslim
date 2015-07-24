@@ -333,12 +333,12 @@
         },
         {
             "name": "slim/slim",
-            "version": "3.0.0",
+            "version": "3.0.x-dev",
             "dist": {
                 "type": "zip",
-                "url": "artifact\\slim-slim-3.0.0.zip",
+                "url": "artifact\\slim-slim-3.0.x-dev.zip",
                 "reference": null,
-                "shasum": "6e0c957498a8ecff632224f39e4ad8ec1cf609ce"
+                "shasum": "48359f8f26fc9b2e192c38a12fa281c3d1d08a53"
             },
             "require": {
                 "container-interop/container-interop": "~1.1",
@@ -353,11 +353,6 @@
                 "satooshi/php-coveralls": "dev-master"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-3.x": "3.0.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Slim\\": "Slim"
@@ -404,7 +399,7 @@
                 "type": "zip",
                 "url": "artifact\\slim-twig-view-dev-master.zip",
                 "reference": null,
-                "shasum": "6e608520e5143920a9f5931b6612812a4e41667b"
+                "shasum": "f83b629c5ba86c4119445a1cb819ebbc7da1d9c2"
             },
             "require": {
                 "php": ">=5.4.0",

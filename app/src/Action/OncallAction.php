@@ -82,6 +82,8 @@ final class OncallAction
             }
         }
 
+        $onCallNow = $this->getOnCallNow($rota);
+
         $this->view->render($response, 'oncall.twig', [
             'rota' => $rota,
             'title' => $title,
@@ -89,7 +91,9 @@ final class OncallAction
             'months' => $months,
             'data' => $data,
             'colour' => $colour,
-            'users' => $users
+            'users' => $users,
+            'formatDate' => date("l jS F Y,  g:ia"),
+            'onCallNow' => $onCallNow
         ]);
         return $response;
     }
@@ -167,5 +171,43 @@ final class OncallAction
 
         return $response;
 
+    }
+
+    protected function getOnCallNow($rota)
+    {
+        $thisHour  = date('G');
+        $nowDay    = date("j");
+        $nowMonth  = date("n");
+        $nowYear   = date("Y");
+        $thisOnCall = 'Not set';
+
+        $yesterday = new \DateTime();
+        $yesterday->modify('-1 day');
+        $day = $yesterday->format('j');
+        $month = $yesterday->format('n');
+        $year = $yesterday->format('Y');
+        $lastOnCall = 'Not set';
+
+        $rotaDay = R::findOne($rota,' month = :month AND year = :year AND day = :day ', [':day' => $nowDay, ':month' => $nowMonth , ':year' => $nowYear] );
+        if(!empty($rotaDay)) {
+            $thisOnCall = $rotaDay->fetchAs('users')->name->fullname;
+        }
+        $rotaYesterday = R::findOne($rota,' month = :month AND year = :year AND day = :day ', [':day' => $day, ':month' => $month , ':year' => $year] );
+        if(!empty($rotaYesterday)) {
+            $lastOnCall = $rotaDay->fetchAs('users')->name->fullname;
+        }
+
+
+        if ($thisOnCall == $lastOnCall) {
+            $OncallNow = $thisOnCall;
+        }else{
+            if (8 > $thisHour){
+                $OncallNow = $lastOnCall;
+            }else{
+                $OncallNow = $thisOnCall;
+            }
+        }
+
+        return $OncallNow;
     }
 }

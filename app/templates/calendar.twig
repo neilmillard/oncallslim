@@ -18,7 +18,7 @@
             {{ time|date('F') }}
         </th>
     </tr>
-    <tr>
+    <tr style="font-size: small">
         <th width="15%">Mon</th>
         <th width="15%">Tue</th>
         <th width="16%">Wed</th>
@@ -43,7 +43,7 @@
             <td>
         {% endif %}
             <div>
-                <div>
+                <div style="color: black;">
                     {% if data is defined %}
                     {{ data[day]|raw }}
                     {% else %}

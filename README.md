@@ -35,7 +35,8 @@ This is a simple skeleton project for Slim 3 that includes Twig, Illuminate Caps
 
 #### IIS
 
-Ensure the `Web.config` and `index.php` files are in the same public-accessible directory. The `Web.config` file should contain this code:
+Ensure the `Web.config` and `index.php` files are in the same public-accessible directory. This uses the Rewrite IIS extension. http://www.iis.net/learn/extensions/url-rewrite-module/using-the-url-rewrite-module
+The `Web.config` file should contain this code:
 
     <?xml version="1.0" encoding="UTF-8"?>
     <configuration>

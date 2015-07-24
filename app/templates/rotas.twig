@@ -9,14 +9,14 @@
     <p> Fullname: {{ rota.fullname }}</p>
     <p> Title: {{ rota.title }}</p>
     <p> comment: {{ rota.comment }}</p>
-    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ url_for('editrota',{'name': rota.name}) }}">
+    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ path_for('editrota',{'name': rota.name}) }}">
         Update
     </a>
 </div>
 {% endfor %}
 
     <div>
-        <a class="btn" style="background: #9834db;color: #ffffff;" href="{{ url_for('editrota',{'name': 'new'}) }}">Create New Rota</a>
+        <a class="btn" style="background: #9834db;color: #ffffff;" href="{{ path_for('editrota',{'name': 'new'}) }}">Create New Rota</a>
     </div>
 <br/><br/>
 
