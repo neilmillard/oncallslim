@@ -3,7 +3,7 @@
 {% block page_title %}{{ parent() }} | Profile{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/css/jquery.simplecolorpicker.css">
+    <link rel="stylesheet" href="{{ base_url() }}/css/jquery.simplecolorpicker.css">
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
         <input type="password" name="password" class="form-control" placeholder="Password" >
         <input type="text" name="fullname" class="form-control" placeholder="fullname" value="{{ fullname }}" required>
         <input type="text" name="shortdial" class="form-control" placeholder="shortdial" value="{{ shortdial }}" >
-        <input type="text" name="longdial" class="form-control" placeholder="longdial" value="{{ longdial }}" required>
+        <input type="text" name="longdial" class="form-control" placeholder="longdial" value="{{ longdial }}" >
         <select name="colour">
             <option value="#7bd148">Green</option>
             <option value="#5484ed">Bold blue</option>
@@ -40,7 +40,7 @@
 
 {% block javascript %}
     <!-- simple colorpicker -->
-    <script src="/scripts/jquery.simplecolorpicker.js"></script>
+    <script src="{{ base_url() }}/scripts/jquery.simplecolorpicker.js"></script>
 <script>
     //$('select[name="color"]').simplecolorpicker();
     $('select[name="colour"]').simplecolorpicker('selectColor', '{{ colour }}');

@@ -48,7 +48,11 @@ final class OncallAction
         $months = [];
         $colour = [];
         $data = [];
-        $thisMonth = date("n") - 1;
+        if(!empty($prev)){
+            $thisMonth = date("n") - 2;
+        } else {
+            $thisMonth = date("n") - 1;
+        }
         $thisYear = date("Y");
 
         if ($thisMonth < 1) {
@@ -65,7 +69,7 @@ final class OncallAction
 
             if ($loggedIn) {
                 foreach (range(1, 31) as $dayCount) {
-                    $data[$i][$dayCount] = "<a href=\"/change/$rota?day=$dayCount&month=$thisMonth&year=$thisYear&prev=$prev\">$dayCount</a>";
+                    $data[$i][$dayCount] = "<a href=\"".$request->getUri()->getBaseUrl()."/change/$rota?day=$dayCount&month=$thisMonth&year=$thisYear&prev=$prev\">$dayCount</a>";
                 }
             } else {
                 $data[$i] = range(0, 31);
@@ -76,7 +80,7 @@ final class OncallAction
                     $onCallUser = $rotaDay->fetchAs( 'users' )->name;
                     $colour[$i][$dayCount] = $onCallUser->colour; //"#6622" . ($dayCount + 10);
                 } else {
-                    $colour[$i][$dayCount] = "#eeeeee";
+                    $colour[$i][$dayCount] = "#fefefe";
                 }
 
             }
@@ -156,7 +160,7 @@ final class OncallAction
         foreach ($users as $user){
             $userlist[] = [
                 'colour'=>$user['colour'],
-                'linkday'=>'<a href="'.$request->getUri()->getBaseUrl().'?name='.$user['name']."&day=$day&month=$month&year=$year\">".$user['fullname']."</a>",
+                'linkday'=>'<a href="?name='.$user['name']."&day=$day&month=$month&year=$year\">".$user['fullname']."</a>",
                 'linkweek'=>'<a href="?name='.$user['name']."&day=$day&month=$month&year=$year&allweek=Y\">".$user['fullname']."</a>"
             ];
         }

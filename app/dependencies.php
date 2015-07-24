@@ -1,4 +1,7 @@
 <?php
+// set the timezone
+date_default_timezone_set('Europe/London');
+
 // DIC configuration
 /**
  * @var \Slim\Container $container
