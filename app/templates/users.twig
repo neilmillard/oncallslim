@@ -7,14 +7,14 @@
 <div>
     <h2>{{ user.name }}</h2>
     <p> Fullname: {{ user.fullname }}</p>
-    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ path_for('edituser',{'username': user.name}) }}">
+    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ base_url() }}{{ path_for('edituser',{'username': user.name}) }}">
         Update
     </a>
 </div>
 {% endfor %}
 
     <div>
-        <a class="btn" style="background: #9834db;color: #ffffff;" href="{{ path_for('edituser',{'username': 'new'}) }}">Create New User</a>
+        <a class="btn" style="background: #9834db;color: #ffffff;" href="{{ base_url() }}{{ path_for('edituser',{'username': 'new'}) }}">Create New User</a>
     </div>
 <br/><br/>
 

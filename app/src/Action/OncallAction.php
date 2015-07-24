@@ -156,7 +156,7 @@ final class OncallAction
         foreach ($users as $user){
             $userlist[] = [
                 'colour'=>$user['colour'],
-                'linkday'=>'<a href="?name='.$user['name']."&day=$day&month=$month&year=$year\">".$user['fullname']."</a>",
+                'linkday'=>'<a href="'.$request->getUri()->getBaseUrl().'?name='.$user['name']."&day=$day&month=$month&year=$year\">".$user['fullname']."</a>",
                 'linkweek'=>'<a href="?name='.$user['name']."&day=$day&month=$month&year=$year&allweek=Y\">".$user['fullname']."</a>"
             ];
         }

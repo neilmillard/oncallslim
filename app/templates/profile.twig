@@ -13,7 +13,7 @@
     <p> Colour: {{ colour }}</p>
     <p> Mobile: {{ mobile }}</p>
     <p> Home: {{ home }}</p>
-    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ path_for('edituser',{'username': name}) }}">
+    <a class="btn" style="background: #3498db;color: #ffffff;" href="{{ base_url() }}{{ path_for('edituser',{'username': name}) }}">
         Update
     </a>
 </div>
