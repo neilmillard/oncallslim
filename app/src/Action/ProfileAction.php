@@ -43,14 +43,14 @@ final class ProfileAction
         $username = $args['username'];
         if(empty($username)){
             $this->flash->addMessage('flash','No user specified');
-            return $response->withRedirect($this->router->pathFor('profile'));
+            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('profile'));
         }
         $id=$this->authenticator->getIdentity();
         // restrict access to own profile or Admin user
         if($username!=$id['name']){
             if(strtolower($id['name'])!='admin'){
                 $this->flash->addMessage('flash','Access Denied');
-                return $response->withRedirect($this->router->pathFor('profile'));
+                return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('profile'));
             }
         }
         if($username!='new'){
@@ -73,7 +73,7 @@ final class ProfileAction
 
             $id = R::store($user);
             $this->flash->addMessage('flash',"$user->name updated");
-            return $response->withRedirect($this->router->pathFor('edituser',['username'=>$username]));
+            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('edituser',['username'=>$username]));
 //            $member = 'INSERT INTO `users` (`name`, `fullname`, `password`, `hash`, `colour`, `shortdial`, `longdial`, `mobile`, `home`, `ins_mf`, `ins_win`, `health_mf`, `health_win`, `life_mf`, `life_win`, `wealth_mf`, `wealth_win`, `uk_shift`, `atss`) VALUES '
 //                . "($username, $fullname, :pass, '', 'FAD2F5', $shortdial, $longdial, '', '', '1', '0', '0', '1', '0', '0', '0', '1', '0', '0');
 //                ";

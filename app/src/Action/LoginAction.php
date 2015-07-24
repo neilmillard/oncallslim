@@ -32,7 +32,7 @@ final class LoginAction
         $username = null;
         $error = null;
 
-        $urlRedirect = $this->router->pathFor('homepage');
+        $urlRedirect = $request->getUri()->getBaseUrl().$this->router->pathFor('homepage');
 
 //        if ($request->getAttribute('r') && $request->getAttribute('r') != '/logout' && $request->getAttribute('r') != '/login') {
 //            $_SESSION['urlRedirect'] = $request->getAttribute('r');
@@ -67,6 +67,6 @@ final class LoginAction
     {
         $this->logger->info("Logout request action");
         $this->authenticator->clearIdentity();
-        return $response->withRedirect($this->router->pathFor('homepage'));
+        return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('homepage'));
     }
 }

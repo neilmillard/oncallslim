@@ -39,7 +39,7 @@ final class OncallAction
         $rotaBean = R::findOne('rotas',' name = :name ', [':name'=>$rota] );
         if(empty($rotaBean)){
             $this->flash->addMessage('flash',"sorry $rota not found");
-            return $response->withRedirect($this->router->pathFor('homepage'));
+            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('homepage'));
         }
         $title = $rotaBean->title;
 
@@ -115,7 +115,7 @@ final class OncallAction
             $rotaUser = R::findOne('users',' name = :username ',['username'=>$name]);
             if(empty($rotaUser)){
                 $this->flash->addMessage('flash',"$name not found");
-                return $response->withRedirect($this->router->pathFor('oncall',['rota'=>$rota]));
+                return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('oncall',['rota'=>$rota]));
             }
             $oldDay = (int) $day;
             $oldMonth = (int) $month;
@@ -144,12 +144,12 @@ final class OncallAction
             }
 
             $this->flash->addMessage('flash',"Rota updated");
-            return $response->withRedirect($this->router->pathFor('oncall',['rota'=>$rota]));
+            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('oncall',['rota'=>$rota]));
         }
         $rotaBean = R::findOne('rotas',' name = :name ', [':name'=>$rota] );
         if(empty($rotaBean)){
             $this->flash->addMessage('flash',"sorry $rota not found");
-            return $response->withRedirect($this->router->pathFor('homepage'));
+            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('homepage'));
         }
         $userlist = [];
         $users = $rotaBean->sharedUsersList;
