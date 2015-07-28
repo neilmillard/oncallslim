@@ -1,11 +1,15 @@
-# Slim 3 Skeleton
+# On Call Slim 3 App
+# based on the skeleton akrabat/slim3-skeleton
 
-This is a simple skeleton project for Slim 3 that includes Twig, Illuminate Capsule, Flash messages and Monolog.
-* 'docs': http://docs-new.slimframework.com
+This is a simple project for Slim 3 that includes Twig, Flash messages and Monolog. In addition this project
+also has Redbean and Authentication.
+* 'slim_docs': http://www.slimframework.com/docs/index.html
+* 'authentication' : http://github.com/zendframework/zf2
+* 'redbean': http://www.redbeanphp.com/
 
-## Create your project:
+## Clone this project:
 
-    $ composer create-project -n -s dev akrabat/slim3-skeleton my-app
+    $ composer create-project -n -s dev neilmillard/oncallslim my-app
 
 ### Run it:
 
@@ -26,7 +30,7 @@ This is a simple skeleton project for Slim 3 that includes Twig, Illuminate Caps
 ## Key files
 
 * `public/index.php`: Entry point to application
-* `app/settings.php`: Configuration
+* `app/settings.php`: Configuration, copy from settings_dist.php
 * `app/dependencies.php`: Services for Pimple
 * `app/middleware.php`: Application middleware
 * `app/routes.php`: All application routes are here
@@ -35,23 +39,5 @@ This is a simple skeleton project for Slim 3 that includes Twig, Illuminate Caps
 
 #### IIS
 
-Ensure the `Web.config` and `index.php` files are in the same public-accessible directory. This uses the Rewrite IIS extension. http://www.iis.net/learn/extensions/url-rewrite-module/using-the-url-rewrite-module
-The `Web.config` file should contain this code:
-
-    <?xml version="1.0" encoding="UTF-8"?>
-    <configuration>
-        <system.webServer>
-            <rewrite>
-                <rules>
-                    <rule name="slim" patternSyntax="Wildcard">
-                        <match url="*" />
-                        <conditions>
-                            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
-                            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
-                        </conditions>
-                        <action type="Rewrite" url="index.php" />
-                    </rule>
-                </rules>
-            </rewrite>
-        </system.webServer>
-    </configuration>
+Ensure the `Web.config` and `index.php` files are in the same public-accessible directory.
+* `Rewrite IIS extension`: http://www.iis.net/learn/extensions/url-rewrite-module/using-the-url-rewrite-module
