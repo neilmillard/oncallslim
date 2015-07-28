@@ -1,5 +1,5 @@
 # On Call Slim 3 App
-# based on the skeleton akrabat/slim3-skeleton
+based on the skeleton akrabat/slim3-skeleton
 
 This is a simple project for Slim 3 that includes Twig, Flash messages and Monolog. In addition this project
 also has Redbean and Authentication.
