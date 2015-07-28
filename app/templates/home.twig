@@ -6,53 +6,15 @@
 <!-- <br><br> -->
 
     <div style="border:0 border-collapse: collapse; width: 700px;">
-        <img style="padding-left: 100px" border="0" src="{{ base_url() }}\axa_technology_services.jpg">
+        <img style="padding-left: 100px" border="0" src="{{ base_url() }}\logo.jpg">
         <br/>
         <h2>Application Services UK Oncall Rotas</h2>
     </div>
 
     <div style="border:0 border-collapse: collapse; width: 700px;">
-        <ul style="list-style-type: disc">
-            <li><h3><b>TOUI - Insurance P&amp;C Apps</b></h3>
-                <ul>
-                    <li><a href="{{ base_url() }}{{ path_for('oncall',{'rota': 'HEALTHMF'}) }}">Health & Insurance Mainframe Apps Shared Rota</a></li>
-                    <li><a href="{{ base_url() }}{{ path_for('oncall',{'rota': 'HEALTHWIN'}) }}">Insurance Windows Apps</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <ul style="list-style-type: disc">
-            <li><h3><b>TOUE - Health & Enterprise Apps</b></h3>
-                <ul>
-                    <li><a href="{{ base_url() }}{{ path_for('oncall',{'rota': 'HEALTHMF'}) }}">Health & Insurance Mainframe Apps Shared Rota</a></li>
-                    <li><a href="{{ base_url() }}{{ path_for('oncall',{'rota': 'HEALTHWIN'}) }}">Health & Enterprise Windows Apps</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <ul style="list-style-type: disc">
-            <li><h3><b>TOUS - AXA Wealth & Group Apps</b></h3>
-                <ul>
-                    <li><a href="{{ base_url() }}{{ path_for('oncall',{'rota': 'WEALTHMF'}) }}">Wealth & Group Mainframe Apps</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <ul style="list-style-type: disc">
-            <li><h3><b>TOUC - PCS</b></h3>
-                <ul>
-                    <li><a href="http://dts.uk.axa-tech.intraxa/public/">PCS oncall rota</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <ul style="list-style-type: disc">
-            <li><h3><b>BAU CALLOUT (copied from mainframe)</b></h3>
-                <ul>
-                    <li><a href="http://wssbos02/apps/UKITBAUCALLOUT.php">BAU CALLOUT</a></li>
-                </ul>
-            </li>
-        </ul>
+        <h3><b>Apps</b></h3>
+            <a href="{{ base_url() }}{{ path_for('oncall',{'rota': 'MF'}) }}">Mainframe Apps</a><br />
+            <a href="{{ base_url() }}{{ path_for('oncall',{'rota': 'WIN'}) }}">Windows Apps</a>
     </div>
 {% endblock %}
         
