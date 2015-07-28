@@ -2,3 +2,5 @@
 vendor/
 log/*
 cache/*
+app/settings.php
+
