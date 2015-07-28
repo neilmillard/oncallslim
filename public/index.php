@@ -14,7 +14,12 @@ require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 // Instantiate the app
-$settings = require __DIR__ . '/../app/settings.php';
+try{
+    $settings = require __DIR__ . '/../app/settings.php';
+} catch (\Exception $e){
+    $settings = require __DIR__ . '/../app/settings_dist.php';
+}
+
 $app = new \Slim\App($settings);
 
 // Set up dependencies
