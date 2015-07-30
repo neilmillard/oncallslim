@@ -47,7 +47,7 @@ final class ProfileAction
         }
         $id=$this->authenticator->getIdentity();
         // restrict access to own profile or Admin user
-        if($username!=$id['name']){
+        if($username!=strtolower($id['name'])){
             if(strtolower($id['name'])!='admin'){
                 $this->flash->addMessage('flash','Access Denied');
                 return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('profile'));
