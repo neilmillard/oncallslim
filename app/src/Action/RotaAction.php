@@ -42,12 +42,12 @@ final class RotaAction
         $id=$this->authenticator->getIdentity();
         if(strtolower($id['name'])!='admin'){
             $this->flash->addMessage('flash','Access Denied');
-            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('homepage'));
+            return $response->withRedirect($this->router->pathFor('homepage'));
         }
         $name = $args['name'];
         if(empty($name)){
             $this->flash->addMessage('flash','No rota specified');
-            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('rotas'));
+            return $response->withRedirect($this->router->pathFor('rotas'));
         }
         if($name!='new'){
             $rota = R::findOrCreate('rotas', [
@@ -87,7 +87,7 @@ final class RotaAction
             }
 
             $this->flash->addMessage('flash',"$rota->name updated");
-            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('rotas'));
+            return $response->withRedirect($this->router->pathFor('rotas'));
         }
         $userList = R::findAll('users');
         $data = $rota->export();
@@ -108,7 +108,7 @@ final class RotaAction
         $name = $args['name'];
         if(empty($name)){
             $this->flash->addMessage('flash','No rota specified');
-            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('rotas'));
+            return $response->withRedirect($this->router->pathFor('rotas'));
         }
         $rota = R::findOne('rotas', ' name = ? ',[ $name ]);
         if(!empty($rota)){
@@ -118,6 +118,6 @@ final class RotaAction
         } else {
             $this->flash->addMessage('flash',"$name Rota not found");
         }
-        return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('rotas'));
+        return $response->withRedirect($this->router->pathFor('rotas'));
     }
 }

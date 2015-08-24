@@ -39,7 +39,7 @@ class Middleware {
             //throw new HttpUnauthorizedException();
             $_SESSION['urlRedirect'] = (string) $request->getUri();
             //$app->flash('error', 'Login required');
-            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('login'));
+            return $response->withRedirect($this->router->pathFor('login'));
 
         }
 

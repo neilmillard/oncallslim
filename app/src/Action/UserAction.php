@@ -42,7 +42,7 @@ final class UserAction
         $name = $args['name'];
         if(empty($name)){
             $this->flash->addMessage('flash','No user specified');
-            return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('users'));
+            return $response->withRedirect($this->router->pathFor('users'));
         }
         $user = R::findOne('users', ' name = ? ',[ $name ]);
         if(!empty($user)){
@@ -51,6 +51,6 @@ final class UserAction
         } else {
             $this->flash->addMessage('flash',"$name User not found");
         }
-        return $response->withRedirect($request->getUri()->getBaseUrl().$this->router->pathFor('users'));
+        return $response->withRedirect($this->router->pathFor('users'));
     }
 }
